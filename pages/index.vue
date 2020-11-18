@@ -238,7 +238,7 @@
     export default {
         head () {
             return {
-                title : 'Demo'
+                title : 'Demo v1'
             }
         },
         components : { betCard, betFilters},

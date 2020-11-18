@@ -72,8 +72,8 @@
 											{{ bet.sport }}
 										</td>
 										<td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-											<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-												Gagné
+											<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full" :class="  bet.status === 'Gagné' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' ">
+												{{ bet.status }}
 											</span>
 										</td>
 										<td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
@@ -99,7 +99,7 @@
 									<p class="text-sm leading-5 text-gray-700">
 										<span class="font-medium">1</span>
 										à
-										<span class="font-medium"> {{ meta.per_page }} </span>
+										<span class="font-medium"> {{ meta.to }} </span>
 										/
 										<span class="font-medium"> {{ meta.total }} </span>
 										Paris
