@@ -1,7 +1,19 @@
 <template>
 	<div>
 		<h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Sélectionner les paris à afficher</h2>
-		<div class="mt-3 p-8 bg-gray-200 rounded shadow-inner mb-8 relative h-full">
+		<div class="mt-3 p-8 bg-gray-200 rounded shadow-inner relative h-full space-y-8">
+			<div class="flex justify-center">
+				<template v-if="filtersInUse">
+					<span class="inline-flex rounded-md shadow-sm">
+						<button type="button" @click.prevent="clearFilters" class="inline-flex items-center px-4 py-2 border border-gray-300 text-base leading-6 font-medium rounded-md text-gray-700 hover:text-gray-500 space-x-2 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+							<span>Réinitialiser</span>
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+							</svg>
+						</button>
+					</span>	
+				</template>
+			</div>		
 			<div class="grid lg:grid-cols-12 gap-x-6 gap-y-8">
 				<div class="space-y-1 relative z-50 inline-block text-left col-span-4" v-for="map, key in filters.data">
 					<div>
@@ -31,7 +43,7 @@
 </template>
 
 <script>
-import lodash from 'lodash'
+import _ from 'lodash'
 export default {
 	data () {
 		return {
@@ -40,9 +52,19 @@ export default {
 			openedFilters : []
 		}
 	},
+	computed : {
+		filtersInUse () {
+			return !_.isEmpty(this.selectedFilters)
+		}
+	},
 	methods: {
 		activateFilter (key, value) {
-			this.selectedFilters = Object.assign({}, this.selectedFilters, { [key] : value})
+			
+			if(_.includes(this.selectedFilters,value)) {
+				this.selectedFilters = _.omit(this.selectedFilters,key)
+			} else  {
+				this.selectedFilters = Object.assign({}, this.selectedFilters, { [key] : value})
+			}
 
 			this.$router.replace({
 				query : {
@@ -50,18 +72,31 @@ export default {
 				}
 			})
 		},
+
 		toogle (key) {
 			if (this.isOpened(key)) {
 				this.openedFilters = _.without(this.openedFilters, key)
 			} else {
 				this.openedFilters.push(key)
 			}
-			console.log(this.openedFilters)
 		},
+
 		isOpened(key) {
 			return _.includes(this.openedFilters, key)
+		},
+
+		clearFilters () {
+			if (this.filtersInUse) {
+				this.selectedFilters = {}
+				this.$router.replace({
+					query : {}
+				})
+			} else {
+				return	
+			}
 		}
 	},
+
 	async mounted () {
 		this.filters = await this.$axios.$get('bets/filters')
 	}

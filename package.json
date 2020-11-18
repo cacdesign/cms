@@ -16,6 +16,7 @@
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.20",
+    "moment": "^2.29.1",
     "nuxt": "^2.14.6",
     "tailwindcss": "^1.9.6",
     "vue-apexcharts": "^1.6.0",
