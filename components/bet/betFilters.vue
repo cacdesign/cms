@@ -2,6 +2,7 @@
 	<div>
 		<h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Sélectionner les paris à afficher</h2>
 		<div class="mt-3 p-8 bg-gray-200 rounded shadow-inner relative h-full space-y-8">
+			{{ selectedFilters }}
 			<div class="flex justify-center">
 				<template v-if="filtersInUse">
 					<span class="inline-flex rounded-md shadow-sm">
@@ -15,6 +16,14 @@
 				</template>
 			</div>		
 			<div class="grid lg:grid-cols-12 gap-x-6 gap-y-8">
+				<div class="col-span-6">
+					<label for="from" class="block text-lg leading-6 font-medium text-gray-700">De</label>
+					<input type="date" v-model="dates.from" @change="activateFilter('from',formatDate(dates.from))" class="mt-1 form-input block w-full sm:leading-6 px-3 py-3 text-lg">
+				</div>
+				<div class="col-span-6">
+					<label for="to" class="block text-lg leading-6 font-medium text-gray-700">A</label>
+					<input type="date" v-model="dates.to" @change="activateFilter('to',formatDate(dates.to))" class="mt-1 form-input block w-full sm:leading-6 px-3 py-3 text-lg">
+				</div>
 				<div class="space-y-1 relative z-50 inline-block text-left col-span-4" v-for="map, key in filters.data">
 					<div>
 						<span class="rounded-md shadow-sm">
@@ -44,18 +53,23 @@
 
 <script>
 import _ from 'lodash'
+import moment from 'moment'
 export default {
 	data () {
 		return {
 			filters : [],
 			selectedFilters : this.$route.query,
-			openedFilters : []
+			openedFilters : [],
+			dates : {
+				from : '',
+				to : ''
+			}
 		}
 	},
 	computed : {
 		filtersInUse () {
 			return !_.isEmpty(this.selectedFilters)
-		}
+		},
 	},
 	methods: {
 		activateFilter (key, value) {
@@ -85,9 +99,16 @@ export default {
 			return _.includes(this.openedFilters, key)
 		},
 
+		formatDate(date) {
+			return moment(date).format('L')
+		},
+
 		clearFilters () {
 			if (this.filtersInUse) {
 				this.selectedFilters = {}
+				this.dates.from = ''
+				this.dates.to = ''
+
 				this.$router.replace({
 					query : {}
 				})
@@ -99,6 +120,7 @@ export default {
 
 	async mounted () {
 		this.filters = await this.$axios.$get('bets/filters')
+		moment.locale('fr');
 	}
 }
 </script>

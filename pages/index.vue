@@ -226,7 +226,6 @@
                 </template>
             </div>
         </div>
-        {{ options.xaxis }}
     </div>
 </template>
 
