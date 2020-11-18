@@ -77,7 +77,8 @@ export default {
 			columns : [],
 			rows : [],
 			importCount : 0,
-			fileWasUploaded : false
+			fileWasUploaded : false,
+			error : {}
 		}
 	},
 
@@ -100,7 +101,7 @@ export default {
 					console.log(res.data)
 				})
 			} catch (e) {
-				console.log(e)
+				this.error = e.response.data
 			}
 		},
 

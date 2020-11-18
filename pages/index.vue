@@ -154,7 +154,7 @@
                                                     Paris remboursés
                                                 </dt>
                                                 <dd class="mt-1 text-3xl leading-9 font-semibold text-gray-900">
-                                                    0
+                                                    {{ bets.stats.paris_rembourses }}
                                                 </dd>
                                             </dl>
                                         </div>
@@ -180,7 +180,7 @@
                                                     Mises moyennes
                                                 </dt>
                                                 <dd class="mt-1 text-3xl leading-9 font-semibold text-gray-900">
-                                                    {{ bets.stats.mise_moy }}
+                                                    {{ bets.stats.mise_moy }}€
                                                 </dd>
                                             </dl>
                                         </div>
@@ -193,7 +193,7 @@
                                                     Côte moyenne
                                                 </dt>
                                                 <dd class="mt-1 text-3xl leading-9 font-semibold text-gray-900">
-                                                    {{ bets.stats.cote_moy }}€
+                                                    {{ bets.stats.cote_moy }}
                                                 </dd>
                                             </dl>
                                         </div>

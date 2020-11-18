@@ -80,16 +80,16 @@
 											{{ bet.type || 'NC' }}
 										</td>
 										<td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-											5.6
+											{{ bet.cote }}
 										</td>
 										<td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-											200
+											{{ bet.mise }}
 										</td>
 										<td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-											408
+											{{ bet.gain }}
 										</td>
 										<td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-											208
+											{{ bet.benefice }}
 										</td>
 									</tr>
 								</tbody>
@@ -141,6 +141,8 @@ export default {
 		async fetchBets() {
 			let bets = await this.$axios.$get('admin/bets')
 			this.bets = bets.data
+			this.meta = bets.meta
+			this.links = bets.links
 		},
 		openModal() {
 			this.$modal.show('importModal')

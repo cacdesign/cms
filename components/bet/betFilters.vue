@@ -2,7 +2,6 @@
 	<div>
 		<h2 class="text-gray-500 text-xs font-medium uppercase tracking-wide">Sélectionner les paris à afficher</h2>
 		<div class="mt-3 p-8 bg-gray-200 rounded shadow-inner relative h-full space-y-8">
-			{{ selectedFilters }}
 			<div class="flex justify-center">
 				<template v-if="filtersInUse">
 					<span class="inline-flex rounded-md shadow-sm">

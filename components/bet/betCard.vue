@@ -27,7 +27,7 @@
 								Mise
 							</dt>
 							<dd class="order-1 text-center text-2xl leading-8 font-extrabold text-indigo-600 sm:leading-9">
-								{{ bet.mise }}
+								{{ bet.mise }}€
 							</dd>
 						</div>
 						<div class="flex flex-col px-8">
@@ -35,15 +35,15 @@
 								Gain
 							</dt>
 							<dd class="order-1 text-center text-2xl leading-8 font-extrabold text-indigo-600 sm:leading-9">
-								{{ bet.gain }}
+								{{ bet.gain }}€
 							</dd>
 						</div>
 						<div class="flex flex-col px-8">
 							<dt class="order-2 text-base leading-6 font-medium text-gray-500">
-								Benef
+								{{ formatBenef }}
 							</dt>
 							<dd class="order-1 text-center text-2xl leading-8 font-extrabold sm:leading-9" :class=" bet.benefice > 0 ? 'text-green-500' : 'text-red-500' ">
-								{{ bet.benefice }}
+								{{ bet.benefice }}€
 							</dd>
 						</div>
 					</dl>
@@ -79,6 +79,11 @@
 			bet : {
 				required : true,
 				type : Object
+			}
+		},
+		computed : {
+			formatBenef() {
+				return this.bet.benefice > 0 ? 'Benef' : 'Perte'
 			}
 		}
 	}
