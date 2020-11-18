@@ -17,11 +17,9 @@
             <div>
                 <template v-if="bets.data">
                     <div class="space-y-24">
-                        <client-only>
-                            <div>
-                                <apexchart height="500" :options="options" :series="series"></apexchart>
-                            </div>
-                        </client-only>
+                        <div>
+                            <apexchart height="500" :options="options" :series="series"></apexchart>
+                        </div>
 
                         <div class="space-y-24">
                             <div>
@@ -203,14 +201,7 @@
                             </div>
 
                             <!-- Bets Listing -->
-                            <div class="space-y-12">
-                                <div class="mt-3 py-3 px-6 border border-indigo-600 rounded flex items-center justify-between">
-                                    <span class="uppercase text-indigo-700 font-medium text-xl">Septembre 2020</span>
-                                    <span class="px-4 py-1.5 rounded-md text-sm font-medium leading-5 bg-indigo-100 text-indigo-800">
-                                        {{ bets.data.length }} paris
-                                    </span>
-                                </div>
-
+                            <div>
                                 <div class="space-y-8">
                                     <bet-card v-for="bet in bets.data" :key="bet.id" :bet="bet"></bet-card>
                                 </div>
@@ -256,7 +247,13 @@ export default {
                 },
                 xaxis: {
                     labels : {
-                        show : false
+                        show : true,
+                        datetimeFormatter: {
+                            year: 'yyyy',
+                            month: "MMM 'yy",
+                            day: 'dd MMM',
+                            hour: 'HH:mm',
+                        },
                     },
                     x : []
                 },
@@ -290,7 +287,7 @@ export default {
         fillLabels() {
             if (this.bets.graph) {
                 return this.bets.graph.map((bet) => {
-                    return bet.date;
+                    return this.formatDate(bet.date);
                 })
             } else {
                 this.options.xaxis.dates = ['10000','10000','10000','10000']
@@ -298,6 +295,9 @@ export default {
         },
         formatToNumber(value) {
             return parseInt(value, 10)
+        },
+        formatDate(date) {
+            return moment(date).format('Y-M-D HH:mm:ss')
         },
         updateChart() {
             const newData = this.fillDatasets()
@@ -311,7 +311,6 @@ export default {
             this.options = {
                 chart: {
                     type: 'area',
-                    stacked: true,
                     zoom: {
                         enabled: false
                     }
@@ -324,7 +323,13 @@ export default {
                 },
                 xaxis : {
                     labels : {
-                        show : false
+                        show : false,
+                        datetimeFormatter: {
+                            year: 'yyyy',
+                            month: 'MMM \'yy',
+                            day: 'dd MMM',
+                            hour: 'HH:mm'
+                        }
                     },
                     x : newData
                 }

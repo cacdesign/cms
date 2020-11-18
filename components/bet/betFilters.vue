@@ -15,15 +15,15 @@
 				</template>
 			</div>		
 			<div class="grid lg:grid-cols-12 gap-x-6 gap-y-8">
-				<div class="col-span-6">
+				<div class="lg:col-span-6">
 					<label for="from" class="block text-lg leading-6 font-medium text-gray-700">De</label>
 					<input type="date" v-model="dates.from" @change="activateFilter('from',formatDate(dates.from))" class="mt-1 form-input block w-full sm:leading-6 px-3 py-3 text-lg">
 				</div>
-				<div class="col-span-6">
+				<div class="lg:col-span-6">
 					<label for="to" class="block text-lg leading-6 font-medium text-gray-700">A</label>
 					<input type="date" v-model="dates.to" @change="activateFilter('to',formatDate(dates.to))" class="mt-1 form-input block w-full sm:leading-6 px-3 py-3 text-lg">
 				</div>
-				<div class="space-y-1 relative z-50 inline-block text-left col-span-4" v-for="map, key in filters.data">
+				<div class="space-y-1 relative z-50 inline-block text-left lg:col-span-4" v-for="map, key in filters.data">
 					<div>
 						<span class="rounded-md shadow-sm">
 							<button type="button" @click.prevent="toogle(key)" class="inline-flex items-center capitalize justify-between w-full rounded-md border border-gray-300 px-4 py-3 bg-white text-lg leading-6 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150" id="options-menu" aria-haspopup="true" aria-expanded="true">
@@ -38,7 +38,7 @@
 					<div class="origin-top-right relative z-50 rounded-md shadow-lg" v-if="isOpened(key)">
 						<div class="rounded-md bg-white shadow-xs">
 							<div class="py-2" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-								<a v-for="value,filter in map" @click.prevent="activateFilter(key, value)" href="#" class="block px-4 py-2 text-base leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900" :class=" selectedFilters[key] === value ? 'bg-gray-100' : '' " role="menuitem">
+								<a v-for="value,filter in map" @click.prevent="activateFilter(key, value)" href="#" class="block px-4 py-2 text-base leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:text-gray-900" :class=" selectedFilters[key] === value ? 'bg-blue-200' : '' " role="menuitem">
 									{{ filter }} 
 								</a>
 							</div>
@@ -99,7 +99,7 @@ export default {
 		},
 
 		formatDate(date) {
-			return moment(date).format('L')
+			return moment(date).format('Y-M-D HH:mm:ss')
 		},
 
 		clearFilters () {
