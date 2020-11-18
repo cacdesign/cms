@@ -18,7 +18,9 @@
                 <template v-if="bets.data">
                     <div class="space-y-24">
                         <div>
-                            <apexchart height="500" :options="options" :series="series"></apexchart>
+                            <client-only>
+                                <apexchart height="500" :options="options" :series="series"></apexchart>
+                            </client-only>
                         </div>
 
                         <div class="space-y-24">
