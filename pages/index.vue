@@ -279,17 +279,17 @@ export default {
     },
     methods : {
         fillDatasets() {
-            if (this.bets.data) {
-                return this.bets.data.map((b) => {
-                    return Number(b.benefice) + 10000
+            if (this.bets.graph) {
+                return this.bets.graph.map((b) => {
+                    return b.capital
                 })
             } else {
                 this.series[0].data = ['10000','10000','10000','10000']
             }
         },
         fillLabels() {
-            if (this.bets.data) {
-                return this.bets.data.map((bet) => {
+            if (this.bets.graph) {
+                return this.bets.graph.map((bet) => {
                     return bet.date;
                 })
             } else {
