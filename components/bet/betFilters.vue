@@ -28,7 +28,7 @@
 					<label :for="key" class="block text-lg capitalize font-medium text-gray-700"><span>{{ key }}</span></label>
 					<select @change="fillFilter(key)" :id="key" class="mt-1 block w-full bg-white pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-base rounded-md">
 						<option selected value="null">Choisissez une valeur</option>
-						<option :id="value" v-for="value,filter in map" :value="value"> {{ filter }} </option>
+						<option v-for="value,filter in map" :value="value"> {{ filter }} </option>
 					</select>
 				</div>
 				<!-- <div class="space-y-1 relative z-50 inline-block text-left lg:col-span-4" v-for="map, key in filters.data">
@@ -94,7 +94,8 @@ export default {
 		},
 
 		fillFilter (key) {
-			console.log(key)
+			var el = document.getElementById(key)
+			this.activateFilter(key, el.value)
 		},
 
 		toogle (key) {
