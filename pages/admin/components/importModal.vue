@@ -8,10 +8,14 @@
 
 		<template slot="body" slot-scope=" { params } ">
 			<div>
+
 				<template v-if="fileWasUploaded">
 					<div class="mt-6 sm:mt-5 sm:gap-4 sm:py-5">
 						<div class="mt-2 sm:mt-0">
-							<div class="flex items-center justify-center py-2">
+							<div class="flex flex-col items-center justify-center py-2">
+								<p class="text-3xl" v-if="importing">
+									<span class="font-extrabold">Paris en cours d'import ...</span>
+								</p>
 								<p class="text-3xl">
 									<span class="font-extrabold">{{ importCount }}</span> paris à importer
 								</p>
@@ -78,7 +82,8 @@ export default {
 			rows : [],
 			importCount : 0,
 			fileWasUploaded : false,
-			error : {}
+			error : {},
+			importing : false
 		}
 	},
 
@@ -90,19 +95,19 @@ export default {
 		},
 
 		async updload (e) {
+			this.importing = true
 			try {
 				await this.$axios.post('admin/bets/import', this.makeFormData(e)).then((res) => {
 					this.fileWasUploaded = true
-					
 					this.columns = res.data.columns
 					this.importCount = res.data.importCount
 					this.rows = res.data.rows
 
-					console.log(res.data)
 				})
 			} catch (e) {
 				this.error = e.response.data
 			}
+			this.importing = false
 		},
 
 		importBets() {

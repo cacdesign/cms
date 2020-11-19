@@ -66,7 +66,7 @@
 											{{ bet.title }}
 										</td> -->
 										<td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500 truncate">
-											{{ bet.date }}
+											{{ formatDate(bet.date) }}
 										</td>
 										<td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
 											{{ bet.sport }}
@@ -124,6 +124,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import importModal from './components/importModal'
 export default {
 	layout : 'admin',
@@ -146,16 +147,26 @@ export default {
 		},
 		openModal() {
 			this.$modal.show('importModal')
-		}
+		},
+		formatDate(date) {
+			return moment(date).format('Y-M-D HH:mm:ss')
+		},
 	},
 
 	async asyncData( { app } ) {
-		let bets = await app.$axios.$get('admin/bets')
-		return {
-			bets : bets.data,
-			meta : bets.meta,
-			links : bets.links
+		try {
+			let bets = await app.$axios.$get('admin/bets')
+			return {
+				bets : bets.data,
+				meta : bets.meta,
+				links : bets.links
+			}
+		} catch(e) {
+			console.log(e)
 		}
+	},
+	created() {
+		moment.locale('fr');
 	}
 }
 </script>
