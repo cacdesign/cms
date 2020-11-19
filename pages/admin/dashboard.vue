@@ -3,8 +3,8 @@
 		<import-modal @BetWasImported="fetchBets" />
 		<div class="space-y-4">
 			<div class=" md:flex md:items-center md:justify-between">
-				<div class="flex-1 flex">
-					<button disabled="deleting" type="button" @click.prevent="deleteAll" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-500  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" :class=" deleting ? 'cursor-not-allowed' : '' ">
+				<div class="flex-1 flex" v-if="bets.length">
+					<button type="button" @click.prevent="deleteAll" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-500  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" :class=" deleting ? 'cursor-not-allowed' : '' ">
 						Tout supprimer
 					</button>
 				</div>
