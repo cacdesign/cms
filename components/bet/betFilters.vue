@@ -17,11 +17,11 @@
 			<div class="grid lg:grid-cols-12 gap-x-6 gap-y-8">
 				<div class="lg:col-span-6">
 					<label for="from" class="block text-lg leading-6 font-medium text-gray-700">De</label>
-					<input type="date" v-model="dates.from" @change="activateFilter('from',formatDate(dates.from))" class="mt-1 form-input block w-full sm:leading-6 px-3 py-3 text-lg">
+					<input type="date" v-model="dates.from" @change="activateFilter('from', formatDate(dates.from))" class="mt-1 form-input block w-full sm:leading-6 px-3 py-3 text-lg">
 				</div>
 				<div class="lg:col-span-6">
 					<label for="to" class="block text-lg leading-6 font-medium text-gray-700">A</label>
-					<input type="date" v-model="dates.to" @change="activateFilter('to',formatDate(dates.to))" class="mt-1 form-input block w-full sm:leading-6 px-3 py-3 text-lg">
+					<input type="date" v-model="dates.to" @change="activateFilter('to', formatDate(dates.to))" class="mt-1 form-input block w-full sm:leading-6 px-3 py-3 text-lg">
 				</div>
 				<div class="space-y-1 relative z-50 inline-block text-left lg:col-span-4" v-for="map, key in filters.data">
 					<div>
