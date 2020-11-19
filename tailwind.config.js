@@ -44,5 +44,5 @@ module.exports = {
         animation: ['responsive', 'hover', 'focus','group-hover'],
     },
 
-    plugins: [require('@tailwindcss/ui')],
+    plugins: [require('@tailwindcss/ui'),require('@tailwindcss/custom-forms')],
 }

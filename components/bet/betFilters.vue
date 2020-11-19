@@ -23,12 +23,19 @@
 					<label for="to" class="block text-lg leading-6 font-medium text-gray-700">A</label>
 					<input type="date" v-model="dates.to" @change="activateFilter('to', formatDate(dates.to))" class="mt-1 form-input block w-full sm:leading-6 px-3 py-3 text-lg">
 				</div>
-				<div class="space-y-1 relative z-50 inline-block text-left lg:col-span-4" v-for="map, key in filters.data">
+
+				<div class="lg:col-span-4" v-for="map, key in filters.data">
+					<label :for="key" class="block text-lg capitalize font-medium text-gray-700"><span>{{ key }}</span></label>
+					<select @change="fillFilter(key)" :id="key" class="mt-1 block w-full bg-white pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-base rounded-md">
+						<option selected value="null">Choisissez une valeur</option>
+						<option :id="value" v-for="value,filter in map" :value="value"> {{ filter }} </option>
+					</select>
+				</div>
+				<!-- <div class="space-y-1 relative z-50 inline-block text-left lg:col-span-4" v-for="map, key in filters.data">
 					<div>
 						<span class="rounded-md shadow-sm">
 							<button type="button" @click.prevent="toogle(key)" class="inline-flex items-center capitalize justify-between w-full rounded-md border border-gray-300 px-4 py-3 bg-white text-lg leading-6 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150" id="options-menu" aria-haspopup="true" aria-expanded="true">
 								<span>{{ key }}</span>
-								<!-- Heroicon name: chevron-down -->
 								<svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
 									<path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
 								</svg>
@@ -44,7 +51,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
@@ -84,6 +91,10 @@ export default {
 					...this.selectedFilters
 				}
 			})
+		},
+
+		fillFilter (key) {
+			console.log(key)
 		},
 
 		toogle (key) {

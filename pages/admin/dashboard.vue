@@ -1,20 +1,12 @@
 <template>
-	<div>
+	<div class="py-16">
 		<import-modal @BetWasImported="fetchBets" />
 		<div class="space-y-4">
 			<div class=" md:flex md:items-center md:justify-between">
 				<div class="flex-1 flex">
-					<div class="w-full lg:w-1/3">
-						<label for="search" class="sr-only">Rechercer un pari</label>
-						<div class="relative text-indigo-300 focus-within:text-gray-400">
-							<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-								<svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-									<path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-								</svg>
-							</div>
-							<input id="search" class="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-indigo-400 bg-opacity-25 text-indigo-300 placeholder-indigo-300 focus:outline-none focus:bg-white focus:placeholder-gray-400 focus:text-gray-900 sm:text-sm transition duration-150 ease-in-out" placeholder="Rechercher un pari" type="search">
-						</div>
-					</div>
+					<button disabled="deleting" type="button" @click.prevent="deleteAll" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-500  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" :class=" deleting ? 'cursor-not-allowed' : '' ">
+						Tout supprimer
+					</button>
 				</div>
 				<div class="mt-6 flex space-x-3 md:mt-0 md:ml-4">
 					<span class="shadow-sm rounded-md">
@@ -135,7 +127,8 @@ export default {
 		return {
 			bets : null,
 			meta : null,
-			links : null
+			links : null,
+			deleting : false
 		}
 	},
 	methods : {
@@ -151,6 +144,18 @@ export default {
 		formatDate(date) {
 			return moment(date).format('Y-M-D HH:mm:ss')
 		},
+		async deleteAll() {
+			if(!window.confirm('Voulez-vous vraiment tout supprimer ?')) {
+				return
+			}
+			this.deleting = true
+			await this.$axios.$delete('admin/bets')
+
+			setTimeout(() => {
+				this.deleting = false
+				this.fetchBets()
+			},1000)
+		}
 	},
 
 	async asyncData( { app } ) {
