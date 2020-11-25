@@ -61,14 +61,13 @@
           />
         </div>
 
-        <div class="lg:col-span-3" v-for="(map, key) in filters.data">
+        <div class="lg:col-span-3" v-for="map, key in filters.data">
           <label
             :for="key"
             class="block text-lg capitalize font-medium text-gray-700"
             ><span>{{ key }}</span></label
           >
           <select
-            v-model="multipleSelections"
             @change="fillFilter($event, key)"
             :id="key"
             class="mt-1 block w-full bg-white pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-base rounded-md"
@@ -79,6 +78,8 @@
             </option>
           </select>
         </div>
+
+
 
         <div class="lg:col-span-3">
           <label
