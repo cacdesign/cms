@@ -1,0 +1,28 @@
+{
+  "name": "demo.combimultisport.com",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/auth": "^4.9.1",
+    "@nuxtjs/axios": "^5.12.2",
+    "@tailwindcss/ui": "^0.7.2",
+    "apexcharts": "^3.22.2",
+    "core-js": "^3.6.5",
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.1",
+    "nuxt": "^2.14.6",
+    "tailwindcss": "^1.9.6",
+    "vue-apexcharts": "^1.6.0",
+    "vue-trend-chart": "^0.15.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/custom-forms": "^0.2.1"
+  }
+}
